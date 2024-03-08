@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-class Document {
+public class Document {
     private List<Table> tables;
 
     public Document() {

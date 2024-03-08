@@ -64,13 +64,5 @@ public class HwpToText2 {
         return "C:/Users/SSAFY/Downloads/21대 국회의원 공약이행현황/" + filename;
     }
 
-    public static void main(String[] args) throws Exception {
-        Document document = hwpToText("057.220831_더불어민주당 부산북강서갑_전재수 의원실_21대 국회의원 공약이행 및 의정활동 평가.hwp");
-
-        System.out.println(document.getTables().get(1).getRows().get(0).getCells().get(1));
-        System.out.println("=================================================================");
-        System.out.println(document);
-
-    }
 }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-class Table {
+public class Table {
     private List<TableRow> rows;
 
     public Table() {
