@@ -13,7 +13,7 @@ import java.util.List;
 
 public class HwpToText2 {
     public static Document hwpToText(String filename) throws Exception {
-        HWPFile hwpFile = HWPReader.fromFile(fullPath(filename));
+        HWPFile hwpFile = HWPReader.fromFile(filename);
         Document document = new Document();
         if (!hwpFile.getBodyText().getSectionList().isEmpty()) {
             Paragraph[] paragraphs = hwpFile.getBodyText().getSectionList().get(0).getParagraphs();
@@ -59,10 +59,5 @@ public class HwpToText2 {
         }
         return tableRow;
     }
-
-    private static String fullPath(String filename) {
-        return "C:/Users/SSAFY/Downloads/21대 국회의원 공약이행현황/" + filename;
-    }
-
 }
 
