@@ -1,6 +1,6 @@
 # hwp2text
-기존에 있던 hwplib를 활용하여 hwp 파일을 텍스트값으로 이루어진 객체로 반환해주는 코드입니다.
-참고 https://github.com/neolord0/hwplib
+- 기존에 있던 hwplib를 활용하여 hwp 파일을 텍스트값으로 이루어진 객체로 반환해주는 코드입니다.
+- 참고 https://github.com/neolord0/hwplib
 
 ## Cell
 - 테이블을 이루고 있는 하나의 셀에 대한 텍스트
