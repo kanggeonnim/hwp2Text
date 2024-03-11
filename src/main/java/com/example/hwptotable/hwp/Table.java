@@ -1,4 +1,4 @@
-package hwp;
+package com.example.hwptotable.hwp;
 
 import lombok.Getter;
 

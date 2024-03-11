@@ -1,4 +1,4 @@
-package hwp;
+package com.example.hwptotable.hwp;
 
 import kr.dogfoot.hwplib.object.HWPFile;
 import kr.dogfoot.hwplib.object.bodytext.control.*;
@@ -53,9 +53,12 @@ public class HwpToText2 {
         TableRow tableRow = new TableRow();
         List<Cell> cells = r.getCellList();
         for (Cell c : cells) {
+            System.out.println(c);
+            StringBuilder str = new StringBuilder();
             for (Paragraph p : c.getParagraphList()) {
-                tableRow.addCell(p.getNormalString());
+                str.append(p.getNormalString());
             }
+            tableRow.addCell(str.toString());
         }
         return tableRow;
     }
