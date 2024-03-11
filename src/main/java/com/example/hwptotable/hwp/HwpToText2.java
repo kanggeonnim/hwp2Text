@@ -53,7 +53,6 @@ public class HwpToText2 {
         TableRow tableRow = new TableRow();
         List<Cell> cells = r.getCellList();
         for (Cell c : cells) {
-            System.out.println(c);
             StringBuilder str = new StringBuilder();
             for (Paragraph p : c.getParagraphList()) {
                 str.append(p.getNormalString());
