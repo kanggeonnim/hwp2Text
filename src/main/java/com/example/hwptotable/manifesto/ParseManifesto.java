@@ -65,12 +65,26 @@ public class ParseManifesto {
                     DetailedPledgeExecutionStatus detailedPledgeExecutionStatus = DetailedPledgeExecutionStatus.builder()
                             .turn(Integer.parseInt(document.getTables().get(i).getRows().get(j).getCells().get(0)))
                             .pledgeName(document.getTables().get(i).getRows().get(j).getCells().get(1))
+                            .pledgeSummary(document.getTables().get(i).getRows().get(j + 3).getCells().get(0))
+                            .natureDivision_NationalRegional(document.getTables().get(i).getRows().get(j).getCells().get(2))
+                            .natureDivision_LegislationFinance(document.getTables().get(i).getRows().get(j).getCells().get(3))
+                            .contentDivision_InTerm_OutTerm(document.getTables().get(i).getRows().get(j).getCells().get(4))
+                            .contentDivision_Continued_New(document.getTables().get(i).getRows().get(j).getCells().get(5))
+                            .fulfillmentRate(document.getTables().get(i).getRows().get(j).getCells().get(6))
+                            .legislativeName()
+                            .proposal()
+                            .standingCommittee()
+                            .generalScope()
+                            .plenarySessionResolution()
+                            .legislativeDetails()
+                            .requiredBudgetAmount(document.getTables().get(i).getRows().get(j).getCells().get(9))
+                            .securedBudgetAmount(document.getTables().get(i).getRows().get(j + 1).getCells().get(5))
+                            .executedBudgetAmount(document.getTables().get(i).getRows().get(j + 2).getCells().get(5))
+                            .securedDetails()
+                            .executionDetails()
+                            .otherImplementationBasis()
+                            .pledgeFulfillmentRate(pledgeFulfillmentRate)
                             .build();
-                    System.out.println("성격별구분_국정/지역: " + document.getTables().get(i).getRows().get(j).getCells().get(2));
-                    System.out.println("성격별구분_입법/재정: " + document.getTables().get(i).getRows().get(j).getCells().get(3));
-                    System.out.println("내용별구분_임기내/임기후: " + document.getTables().get(i).getRows().get(j).getCells().get(4));
-                    System.out.println("내용별구분_지속/신규: " + document.getTables().get(i).getRows().get(j).getCells().get(5));
-                    System.out.println("-----");
                 } catch (Exception e) {
                     System.out.println("오류 발생:" + filepath);
                     break;
