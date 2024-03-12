@@ -2,12 +2,11 @@ package com.example.hwptotable.manifesto;
 
 import ch.qos.logback.core.joran.action.PreconditionValidator;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -115,7 +114,7 @@ public class PledgeFulfillmentRate { // 공약 이행률
 
     // 공약이행현황 상세
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pledgeFulfillmentRate")
-    private Set<DetailedPledgeExecutionStatus> pledges = new HashSet<>();
+    private List<DetailedPledgeExecutionStatus> pledges = new ArrayList<>();
 
     // 공약이행현황 상세 추가
     public void addPledge(DetailedPledgeExecutionStatus pledge) {

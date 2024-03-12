@@ -1,13 +1,11 @@
 package com.example.hwptotable.manifesto;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class DetailedPledgeExecutionStatus {  // 공약이행현황 상세
@@ -25,7 +23,7 @@ public class DetailedPledgeExecutionStatus {  // 공약이행현황 상세
     private String pledgeName;
 
     // 공약내용요약
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String pledgeSummary;
 
     // 성격별 구분 (국정/지역)
@@ -69,7 +67,7 @@ public class DetailedPledgeExecutionStatus {  // 공약이행현황 상세
     private String plenarySessionResolution;
 
     // 입법 내역
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String legislativeDetails;
 
     // 필요 재정액
@@ -85,15 +83,15 @@ public class DetailedPledgeExecutionStatus {  // 공약이행현황 상세
     private String executedBudgetAmount;
 
     // 확보 내역
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String securedDetails;
 
     // 집행 내역
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String executionDetails;
 
     // 기타 이행근거
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String otherImplementationBasis;
 
     // 공약 이행률

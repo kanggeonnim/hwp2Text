@@ -18,8 +18,6 @@ public class HwpToText {
 
         if (!hwpFile.getBodyText().getSectionList().isEmpty()) {
             Paragraph[] paragraphs = hwpFile.getBodyText().getSectionList().get(0).getParagraphs();
-            System.out.println(getHwpTexts(paragraphs));
-
         }
     }
 
