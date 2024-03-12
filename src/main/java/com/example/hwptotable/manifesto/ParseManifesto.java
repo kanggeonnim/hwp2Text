@@ -73,7 +73,7 @@ public class ParseManifesto {
     private static PledgeFulfillmentRate createPledgeFulfillmentRate(Document document) {
 
         PledgeFulfillmentRate pledgeFulfillmentRate = PledgeFulfillmentRate.builder()
-                .legislatorName(document.getTables().get(1).getRows().get(0).getCells().get(1))
+                .legislatorName(getLegislatorName(document))
                 .standingCommittee(document.getTables().get(1).getRows().get(0).getCells().get(3))
                 .affiliatedParty(document.getTables().get(1).getRows().get(1).getCells().get(1))
                 .electoralDistrict(document.getTables().get(1).getRows().get(1).getCells().get(3))
@@ -99,6 +99,18 @@ public class ParseManifesto {
                 .build();
 
         return pledgeFulfillmentRate;
+    }
+
+    private static String getLegislatorName(Document document) {
+        String name = document.getTables().get(1).getRows().get(0).getCells().get(1);
+        if (name.length() > 3) {
+            if (name.substring(name.length() - 3).equals("의원실"))
+                name = name.substring(0, name.length() - 3);
+            else if (name.substring(name.length() - 2).equals("의원")) {
+                name = name.substring(0, name.length() - 2);
+            }
+        }
+        return name.replace(" ", "");
     }
 
     private static void addDetailPledges(String filepath, Document document, PledgeFulfillmentRate pledgeFulfillmentRate) {
