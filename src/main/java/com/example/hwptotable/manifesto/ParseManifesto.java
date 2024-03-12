@@ -7,8 +7,6 @@ import com.example.hwptotable.hwp.TableRow;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -28,16 +26,16 @@ public class ParseManifesto {
         File dir = new File(DATA_DIRECTORY);
         for (String filepath : dir.list()) {
             HwpToText2 h2 = new HwpToText2();
-            if (!filepath.matches("\\b[가-힣\\w\\s`~!@#$%^&*()-_+=\\[{\\]};:'\",<.>/?]+\\.hwp\\b")) continue;
-
+            if (!filepath.substring(filepath.length() - 3).equals("hwp")) {
+                continue;
+            }
             try {
 
                 Document document = h2.hwpToText(DATA_DIRECTORY + filepath);
 
                 PledgeFulfillmentRate pledgeFulfillmentRate = createPledgeFulfillmentRate(document);
                 pledgeFulfillmentRateRepository.save(pledgeFulfillmentRate);
-
-                addDetailPledges(filepath, document, pledgeFulfillmentRate);
+//                addDetailPledges(filepath, document, pledgeFulfillmentRate);
             } catch (Exception e) {
                 log.info("오류발생: " + filepath);
                 e.printStackTrace();
