@@ -1,6 +1,7 @@
 # hwp2text
 - 기존에 있던 hwplib를 활용하여 hwp 파일을 텍스트값으로 이루어진 객체로 반환해주는 코드입니다.
-- 참고 https://github.com/neolord0/hwplib
+- [상세 설명](https://melodic-swift-c16.notion.site/HWP2TEXT-043ba939f05a4d44ac40c0dd9b90deab?pvs=4)
+- [참고 문서](https://github.com/neolord0/hwplib)
 
 ## 매니페스토 국회의원 이행률 현황 parser
 - 한국매니페스토실천본부에서 공개한 21대 국회의원 공약 이행률.hwp 파일에 대해서 text를 추출하여 DB에 적재.
