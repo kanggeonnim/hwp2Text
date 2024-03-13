@@ -1,4 +1,4 @@
-package com.example.hwptotable.manifesto.Dto.DetailedPledgeExecutionStatusDto;
+package com.example.hwptotable.assembly.dto.DetailedPledgeExecutionStatusDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

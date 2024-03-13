@@ -1,4 +1,4 @@
-package com.example.hwptotable.manifesto;
+package com.example.hwptotable.assembly.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

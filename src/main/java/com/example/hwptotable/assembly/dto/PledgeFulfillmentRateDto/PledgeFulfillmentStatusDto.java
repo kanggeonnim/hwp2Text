@@ -1,4 +1,4 @@
-package com.example.hwptotable.manifesto.Dto.PledgeFulfillmentRateDto;
+package com.example.hwptotable.assembly.dto.PledgeFulfillmentRateDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

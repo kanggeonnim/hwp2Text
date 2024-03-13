@@ -1,5 +1,8 @@
-package com.example.hwptotable.manifesto;
+package com.example.hwptotable.parse;
 
+import com.example.hwptotable.assembly.entity.DetailedPledgeExecutionStatus;
+import com.example.hwptotable.assembly.entity.PledgeFulfillmentRate;
+import com.example.hwptotable.assembly.repository.PledgeFulfillmentRateRepository;
 import com.example.hwptotable.hwp.Document;
 import com.example.hwptotable.hwp.HwpToText2;
 import com.example.hwptotable.hwp.Table;
@@ -35,7 +38,7 @@ public class ParseManifesto {
 
                 PledgeFulfillmentRate pledgeFulfillmentRate = createPledgeFulfillmentRate(document);
                 pledgeFulfillmentRateRepository.save(pledgeFulfillmentRate);
-//                addDetailPledges(filepath, document, pledgeFulfillmentRate);
+                addDetailPledges(filepath, document, pledgeFulfillmentRate);
             } catch (Exception e) {
                 log.info("오류발생: " + filepath);
                 e.printStackTrace();

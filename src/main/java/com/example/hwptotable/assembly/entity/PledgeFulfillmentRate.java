@@ -1,13 +1,10 @@
-package com.example.hwptotable.manifesto;
+package com.example.hwptotable.assembly.entity;
 
-import ch.qos.logback.core.joran.action.PreconditionValidator;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
