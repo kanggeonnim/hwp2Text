@@ -1,12 +1,11 @@
 package com.example.hwptotable.assembly.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class AttendanceRate {
@@ -45,4 +44,25 @@ public class AttendanceRate {
     // 결석신고서
     @Column(nullable = false)
     private int absenceReport;
+
+    @Builder
+    public AttendanceRate(String legislatorName, String affiliatedParty, int meetingDays, int attendance, int absence, int leave, int businessTrip, int absenceReport) {
+        this.legislatorName = legislatorName;
+        this.affiliatedParty = affiliatedParty;
+        this.meetingDays = meetingDays;
+        this.attendance = attendance;
+        this.absence = absence;
+        this.leave = leave;
+        this.businessTrip = businessTrip;
+        this.absenceReport = absenceReport;
+    }
+
+    public void addDays(int meetingDays, int attendance, int absence, int leave, int businessTrip, int absenceReport) {
+        this.meetingDays += meetingDays;
+        this.attendance += attendance;
+        this.absence += absence;
+        this.leave += leave;
+        this.businessTrip += businessTrip;
+        this.absenceReport += absenceReport;
+    }
 }
