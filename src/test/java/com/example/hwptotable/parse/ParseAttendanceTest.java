@@ -19,4 +19,9 @@ class ParseAttendanceTest {
     public void Test() throws Exception {
         parseAttendance.parseAll();
     }
+
+    @Test
+    public void Test2() {
+        parseAttendance.parseAttendance2();
+    }
 }
