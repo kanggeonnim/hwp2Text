@@ -12,6 +12,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.StringTokenizer;
@@ -105,14 +106,14 @@ public class ParseAttendance {
     }
 
     public void parseAttendance2() {
-        //        DATA_DIRECTORY = "C:/Users/SSAFY/Downloads/21대 국회의원 상임위 출결현황/문제아/";   // window
-        DATA_DIRECTORY = "/Users/kanggeon/Downloads/";
+        DATA_DIRECTORY = "C:/Users/SSAFY/Downloads/21대 국회의원 상임위 출결현황/문제아/";   // window
+//        DATA_DIRECTORY = "/Users/kanggeon/Downloads/";
         File dir = new File(DATA_DIRECTORY);
         HwpToText2 h2 = new HwpToText2();
-        String[] lines = null;
+        String[] lines;
 
         for (String filepath : Objects.requireNonNull(dir.list())) {
-            if (!filepath.endsWith("2020년 6월 상임위 출결 현황.pdf")) {
+            if (!filepath.endsWith("pdf")) {
                 continue;
             }
             try {
@@ -150,7 +151,7 @@ public class ParseAttendance {
                     if (m.find()) {
                         StringTokenizer st = new StringTokenizer(m.group());
                         // 표가 짤린 경우
-                        if (1 <= st.countTokens() && st.countTokens() < 5) {
+                        if (1 <= st.countTokens() && st.countTokens() <= 5) {
                             // 표의 크기를 안구한 경우
                             if (tableSize == 0) {
                                 for (int t = 1; ; t++) {
@@ -179,7 +180,8 @@ public class ParseAttendance {
 //                                System.out.println(c);
                                 st = new StringTokenizer(lines[i + tableSize]);
 //                                System.out.println(st.countTokens());
-                                for (c += 1; c < counts.length; c++) {
+                                int size = st.countTokens();
+                                for (c += 1; c < size; c++) {
                                     counts[c] = Integer.parseInt(st.nextToken());
                                 }
 
@@ -224,14 +226,14 @@ public class ParseAttendance {
     }
 
     public static void main(String[] args) {
-//        DATA_DIRECTORY = "C:/Users/SSAFY/Downloads/21대 국회의원 상임위 출결현황/문제아/";   // window
-        DATA_DIRECTORY = "/Users/kanggeon/Downloads/";
+        DATA_DIRECTORY = "C:/Users/SSAFY/Downloads/21대 국회의원 상임위 출결현황/문제아/";   // window
+//        DATA_DIRECTORY = "/Users/kanggeon/Downloads/";
         File dir = new File(DATA_DIRECTORY);
         HwpToText2 h2 = new HwpToText2();
         String[] lines = null;
 
         for (String filepath : Objects.requireNonNull(dir.list())) {
-            if (!filepath.endsWith("2020년 6월 상임위 출결 현황.pdf")) {
+            if (!filepath.endsWith("2020년 7월 상임위 현황.pdf")) {
                 continue;
             }
             try {
@@ -246,7 +248,7 @@ public class ParseAttendance {
 
                 int tableSize = 0;
                 for (int i = 0; i < lines.length; i++) {
-//                    System.out.println("lines" + lines[i]);
+                    System.out.println("lines" + lines[i]);
                     // 의원명
                     int nameIdx = lines[i].indexOf(" ");
                     if (nameIdx <= 0) continue;
@@ -269,40 +271,43 @@ public class ParseAttendance {
                     if (m.find()) {
                         StringTokenizer st = new StringTokenizer(m.group());
                         // 표가 짤린 경우
-                        if (1 <= st.countTokens() && st.countTokens() < 5) {
+                        if (1 <= st.countTokens() && st.countTokens() <= 5) {
                             // 표의 크기를 안구한 경우
                             if (tableSize == 0) {
                                 for (int t = 1; ; t++) {
                                     int col = lines[i + t].toCharArray()[0] - '0';
-//                                    System.out.println(lines[i + t]);
-//                                    System.out.println("col is " + col);
+                                    System.out.println(lines[i + t]);
+                                    System.out.println("col is " + col);
 
                                     if (0 <= col && col <= 9) {
                                         tableSize = t;
-//                                        System.out.println("tableSize is " + tableSize);
+                                        System.out.println("tableSize is " + tableSize);
                                         break;
                                     }
                                 }
                             }
                             // 표의 크기를 구해논 경우
                             {
-//                                System.out.println("@@@ table size is" + tableSize);
-//                                System.out.println(lines[i]);
-//                                System.out.println(lines[i + tableSize]);
+                                System.out.println("@@@ table size is" + tableSize);
+                                System.out.println(lines[i]);
+                                System.out.println(lines[i + tableSize]);
                                 // 토큰 빼내기
                                 int[] counts = new int[6];
                                 int c = 0;
-                                for (; c < st.countTokens(); c++) {
+                                System.out.println("before st.CT " + st.countTokens());
+                                int size = st.countTokens();
+                                for (; c < size; c++) {
                                     counts[c] = Integer.parseInt(st.nextToken());
                                 }
-//                                System.out.println(c);
+                                System.out.println(c);
+                                System.out.println("count[] is " + Arrays.toString(counts));
                                 st = new StringTokenizer(lines[i + tableSize]);
-//                                System.out.println(st.countTokens());
+                                System.out.println("st.CT " + st.countTokens());
                                 for (c += 1; c < counts.length; c++) {
                                     counts[c] = Integer.parseInt(st.nextToken());
                                 }
+                                System.out.println(Arrays.toString(counts));
 
-//                                System.out.println(Arrays.toString(counts));
                                 AttendanceRate attendanceRate = AttendanceRate.builder()
                                         .legislatorName(name)
                                         .affiliatedParty(party)
@@ -316,7 +321,7 @@ public class ParseAttendance {
                                 System.out.println(attendanceRate);
                             }
                         } else {
-//                            System.out.println("@@" + name + "@@" + party + "@@" + m.group());
+                            System.out.println("@@" + name + "@@" + party + "@@" + m.group());
                             AttendanceRate attendanceRate = AttendanceRate.builder()
                                     .legislatorName(name)
                                     .affiliatedParty(party)
