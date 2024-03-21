@@ -17,21 +17,13 @@ public class PledgeFulfillmentRate { // 공약 이행률
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 의원명
+    // 의원 아이디
     @Column(nullable = false)
-    private String legislatorName;
+    private Long assemblyId;
 
     // 상임위원회
     @Column(nullable = false)
     private String standingCommittee;
-
-    //  소속정당
-    @Column(nullable = false)
-    private String affiliatedParty;
-
-    // 지역구
-    @Column(nullable = false)
-    private String electoralDistrict;
 
     // 총 공약 수
     @Column(nullable = false)
@@ -119,11 +111,9 @@ public class PledgeFulfillmentRate { // 공약 이행률
     }
 
     @Builder
-    public PledgeFulfillmentRate(String legislatorName, String standingCommittee, String affiliatedParty, String electoralDistrict, String totalPledges, String completedPledges, String ongoingPledges, String pendingPledges, String discardedPledges, String otherPledges, String nationalPledges, String regionalPledges, String legislativePledges, String financialPledges, String inTermPledges, String outTermPledges, String ongoingProjects, String newProjects, String totalRequiredLegislativePledges, String totalLegislativeResolutionCompletedPledges, String totalRequiredBudget, String totalSecuredBudget, String totalExecutedBudget) {
-        this.legislatorName = legislatorName;
+    public PledgeFulfillmentRate(Long assemblyId, String standingCommittee, String totalPledges, String completedPledges, String ongoingPledges, String pendingPledges, String discardedPledges, String otherPledges, String nationalPledges, String regionalPledges, String legislativePledges, String financialPledges, String inTermPledges, String outTermPledges, String ongoingProjects, String newProjects, String totalRequiredLegislativePledges, String totalLegislativeResolutionCompletedPledges, String totalRequiredBudget, String totalSecuredBudget, String totalExecutedBudget) {
+        this.assemblyId = assemblyId;
         this.standingCommittee = standingCommittee;
-        this.affiliatedParty = affiliatedParty;
-        this.electoralDistrict = electoralDistrict;
         this.totalPledges = totalPledges;
         this.completedPledges = completedPledges;
         this.ongoingPledges = ongoingPledges;

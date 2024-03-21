@@ -6,22 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
 @Rollback(false)
-class ParseAttendanceTest {
+class ParseAttendance2Test {
     @Autowired
     ParseAttendance parseAttendance;
 
+    @Autowired
+    ParseAttendance2 parseAttendance2;
+
+    @Autowired
+    ParseManifesto parseManifesto;
+
     @Test
     public void Test() throws Exception {
+        parseManifesto.parseAll();
         parseAttendance.parseAll();
+        parseAttendance.parseStandingAtd();
+        parseAttendance.parseSpecialAtd();
     }
 
     @Test
     public void Test2() {
-        parseAttendance.parseAttendance2();
+        parseAttendance2.parseAll();
     }
 }

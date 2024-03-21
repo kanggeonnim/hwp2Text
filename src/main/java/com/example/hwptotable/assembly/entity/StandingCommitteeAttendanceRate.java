@@ -8,12 +8,12 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class AttendanceRate {
+public class StandingCommitteeAttendanceRate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 의원 아이디
+    // 의원아이디
     @Column(nullable = false)
     private Long assemblyId;
 
@@ -42,7 +42,7 @@ public class AttendanceRate {
     private int absenceReport;
 
     @Builder
-    public AttendanceRate(Long assemblyId, int meetingDays, int attendance, int absence, int leaves, int businessTrip, int absenceReport) {
+    public StandingCommitteeAttendanceRate(Long assemblyId, int meetingDays, int attendance, int absence, int leaves, int businessTrip, int absenceReport) {
         this.assemblyId = assemblyId;
         this.meetingDays = meetingDays;
         this.attendance = attendance;

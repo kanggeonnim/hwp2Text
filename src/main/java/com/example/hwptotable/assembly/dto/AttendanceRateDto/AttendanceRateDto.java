@@ -22,7 +22,7 @@ public class AttendanceRateDto {
     // 결석
     private int absence;
     // 청가
-    private int leave;
+    private int leaves;
     // 출장
     private int businessTrip;
     // 결석신고서

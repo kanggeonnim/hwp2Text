@@ -1,5 +1,7 @@
 package com.example.hwptotable.parse;
 
+import com.example.hwptotable.assembly.AssemblyRepository;
+import com.example.hwptotable.assembly.SimpleAssembly;
 import com.example.hwptotable.assembly.entity.DetailedPledgeExecutionStatus;
 import com.example.hwptotable.assembly.entity.PledgeFulfillmentRate;
 import com.example.hwptotable.assembly.repository.PledgeFulfillmentRateRepository;
@@ -13,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,6 +26,8 @@ public class ParseManifesto {
     //    private static String DATA_DIRECTORY = "/Users/kanggeon/Downloads/01.서울지역/";  // mac
 
     private final PledgeFulfillmentRateRepository pledgeFulfillmentRateRepository;
+
+    private final AssemblyRepository assemblyRepository;
 
     public void parseAll() throws Exception {
 
@@ -73,13 +78,13 @@ public class ParseManifesto {
         }
     }
 
-    private static PledgeFulfillmentRate createPledgeFulfillmentRate(Document document) {
+    private PledgeFulfillmentRate createPledgeFulfillmentRate(Document document) throws RuntimeException {
 
-        PledgeFulfillmentRate pledgeFulfillmentRate = PledgeFulfillmentRate.builder()
-                .legislatorName(getLegislatorName(document))
+        Long assemblyId = getAssemblyId(document);
+
+        return PledgeFulfillmentRate.builder()
+                .assemblyId(assemblyId)
                 .standingCommittee(document.getTables().get(1).getRows().get(0).getCells().get(3))
-                .affiliatedParty(document.getTables().get(1).getRows().get(1).getCells().get(1))
-                .electoralDistrict(document.getTables().get(1).getRows().get(1).getCells().get(3))
                 .totalPledges(document.getTables().get(2).getRows().get(2).getCells().get(0))
                 .completedPledges(document.getTables().get(2).getRows().get(2).getCells().get(1))
                 .ongoingPledges(document.getTables().get(2).getRows().get(2).getCells().get(2))
@@ -100,8 +105,27 @@ public class ParseManifesto {
                 .totalSecuredBudget(document.getTables().get(3).getRows().get(2).getCells().get(3))
                 .totalExecutedBudget(document.getTables().get(3).getRows().get(2).getCells().get(4))
                 .build();
+    }
 
-        return pledgeFulfillmentRate;
+    private Long getAssemblyId(Document document) {
+        String hgName = getLegislatorName(document);
+        String polyName = getPolyName(document);
+
+        // 정당과 이름 함께 검색
+        Optional<SimpleAssembly> findAssembly = assemblyRepository.findByHgNameAndPolyName(hgName, polyName);
+
+        // 정당 변경시
+        if (findAssembly.isEmpty())
+            findAssembly = assemblyRepository.findByHgName(hgName);
+
+        if (findAssembly.isEmpty())
+            throw new RuntimeException("can't find assembly" + hgName + " " + polyName);
+
+        return findAssembly.get().getId();
+    }
+
+    private static String getPolyName(Document document) {
+        return document.getTables().get(1).getRows().get(1).getCells().get(1);
     }
 
     private static String getLegislatorName(Document document) {
@@ -148,7 +172,7 @@ public class ParseManifesto {
                             .build();
                     pledgeFulfillmentRate.addPledge(detailedPledgeExecutionStatus);
                 } catch (Exception e) {
-                    log.info("오류 발생:" + document.getTables().get(i).getRows().get(j).getCells().get(1));
+                    log.info("오류 발생:" + document.getTables().get(i).getRows().get(j).getCells());
 //                    e.printStackTrace();
                 }
             }
